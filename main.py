@@ -2,21 +2,15 @@ import pygame
 import chess
 import chess.engine
 
+from config import WIDTH, HEIGHT, ROWS, COLS, SQUARE_SIZE, WHITE, BROWN, HIGHLIGHT_COLOR, PIECE_NAMES, DARK_MODE, LIGHT_MODE
+from ai import ChessAI
+
 # Initialize Pygame
 pygame.init()
 
-# Constants
-WIDTH, HEIGHT = 740, 900
-ROWS, COLS = 8, 8
-SQUARE_SIZE = WIDTH // COLS
-WHITE = (238, 238, 210)
-BROWN = (118, 150, 86)
-HIGHLIGHT_COLOR = (186, 202, 68, 150)  # Semi-transparent highlight
+# Load images dynamically
+PIECES = {piece: pygame.transform.scale(pygame.image.load(f"images/{piece}.png"), (SQUARE_SIZE, SQUARE_SIZE)) for piece in PIECE_NAMES}
 
-# Load images
-PIECES = {}
-for piece in ["wp", "bp", "wr", "br", "wn", "bn", "wb", "bb", "wq", "bq", "wk", "bk"]:
-    PIECES[piece] = pygame.transform.scale(pygame.image.load(f"images/{piece}.png"), (SQUARE_SIZE, SQUARE_SIZE))
 
 # Initialize screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -25,6 +19,13 @@ pygame.display.set_caption("Chess Game")
 # Initialize chess board
 chess_board = chess.Board()
 selected_square = None
+
+# Initialize AI
+ai = ChessAI(difficulty=5)  # You can change difficulty dynamically
+
+def ai_move():
+    move = ai.get_best_move(chess_board)
+    chess_board.push(move)
 
 def draw_board():
     for row in range(ROWS):
@@ -89,7 +90,63 @@ def highlight_selected_piece():
         row, col = divmod(selected_square, 8)
         pygame.draw.rect(screen, (0, 255, 0, 150), (col * SQUARE_SIZE, (7 - row) * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 5)
 
+DIFFICULTY = {'Easy': 1, 'Medium': 3, 'Hard': 5}
+GAME_MODES = ['Human vs AI', 'Human vs Human']
+
+def draw_text(screen, text, pos, size=36, color=(255, 255, 255)):
+    font = pygame.font.Font(None, size)
+    rendered_text = font.render(text, True, color)
+    screen.blit(rendered_text, pos)
+
+def menu_screen():
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Chess - Main Menu")
+    running = True
+    selected_difficulty = 'Medium'
+    selected_theme = LIGHT_MODE
+    selected_mode = 'Human vs AI'
+    
+    while running:
+        screen.fill((30, 30, 30))
+        draw_text(screen, "Select Difficulty:", (50, 50))
+        draw_text(screen, "Select Theme:", (50, 200))
+        draw_text(screen, "Select Game Mode:", (50, 350))
+        
+        for i, diff in enumerate(DIFFICULTY.keys()):
+            color = (0, 255, 0) if diff == selected_difficulty else (200, 200, 200)
+            draw_text(screen, diff, (70, 100 + i * 40), 32, color)
+        
+        for i, mode in enumerate(GAME_MODES):
+            color = (0, 255, 0) if mode == selected_mode else (200, 200, 200)
+            draw_text(screen, mode, (70, 400 + i * 40), 32, color)
+        
+        pygame.draw.rect(screen, (100, 200, 100), (300, 700, 150, 50))
+        draw_text(screen, "Start Game", (320, 715))
+        
+        pygame.display.flip()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                if 300 <= x <= 450 and 700 <= y <= 750:
+                    running = False
+                for i, diff in enumerate(DIFFICULTY.keys()):
+                    if 70 <= x <= 200 and 100 + i * 40 <= y <= 130 + i * 40:
+                        selected_difficulty = diff
+                for i, mode in enumerate(GAME_MODES):
+                    if 70 <= x <= 300 and 400 + i * 40 <= y <= 430 + i * 40:
+                        selected_mode = mode
+    return selected_difficulty, selected_theme, selected_mode
+
 def main():
+    difficulty, theme, game_mode = menu_screen()
+    print(f"Selected Difficulty: {difficulty}")
+    print(f"Selected Theme: {theme}")
+    print(f"Selected Game Mode: {game_mode}")
+    # Start the chess game here
     global selected_square
     running = True
     while running:
@@ -103,6 +160,10 @@ def main():
         handle_undo_click(pygame.mouse.get_pos())
         highlight_selected_piece()
         pygame.display.flip()
+
+        if not chess_board.turn:  # If it's Black's turn (AI)
+            ai_move()
+
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
