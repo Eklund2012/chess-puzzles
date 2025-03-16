@@ -2,19 +2,22 @@
 #functions related to drawing the chess board and pieces
 
 import pygame
-from config import ROWS, COLS, SQUARE_SIZE, WHITE, BROWN, PIECE_NAMES, HIGHLIGHT_COLOR, WIDTH, HEIGHT
+from config import *
 
 
 class Board:
     def __init__(self, screen):
         self.screen = screen
-        PIECES = {piece: pygame.transform.scale(pygame.image.load(f"images/{piece}.png"), (SQUARE_SIZE, SQUARE_SIZE)) for piece in PIECE_NAMES}
-        self.PIECES = PIECES
-
-    def draw_board(self, screen):
+        self.PIECES = {
+            piece: pygame.transform.scale(pygame.image.load(f"images/{piece}.png"), (SQUARE_SIZE, SQUARE_SIZE))
+            for piece in PIECE_NAMES
+        }
+        
+    def draw_board(self, screen, theme):
+        light_color, dark_color = THEME_COLORS.get(theme, LIGHT_MODE)  # Default to LIGHT_MODE
         for row in range(ROWS):
             for col in range(COLS):
-                color = WHITE if (row + col) % 2 == 0 else BROWN
+                color = light_color if (row + col) % 2 == 0 else dark_color
                 pygame.draw.rect(screen, color, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
     def draw_pieces(self, screen, chess_board):
