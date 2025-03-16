@@ -1,37 +1,31 @@
+#main.py
+
 import pygame
 import chess
 import chess.engine
 
 from config import WIDTH, HEIGHT, ROWS, COLS, SQUARE_SIZE, WHITE, BROWN, HIGHLIGHT_COLOR, PIECE_NAMES, DARK_MODE, LIGHT_MODE
-from ai import ChessAI
-
-# Initialize Pygame
-pygame.init()
+from init import Init  # Import the Init class
+from board import Board  # Import the Board class
 
 # Load images dynamically
 PIECES = {piece: pygame.transform.scale(pygame.image.load(f"images/{piece}.png"), (SQUARE_SIZE, SQUARE_SIZE)) for piece in PIECE_NAMES}
 
 
-# Initialize screen
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Chess Game")
+# Initialize the game components using Init
+game = Init()
+screen = game.screen
+chess_board = game.chess_board
+ai = game.ai  # AI instance
 
-# Initialize chess board
-chess_board = chess.Board()
-selected_square = None
-
-# Initialize AI
-ai = ChessAI(difficulty=5)  # You can change difficulty dynamically
+selected_square = None  # Keep track of the selected square
 
 def ai_move():
     move = ai.get_best_move(chess_board)
     chess_board.push(move)
 
-def draw_board():
-    for row in range(ROWS):
-        for col in range(COLS):
-            color = WHITE if (row + col) % 2 == 0 else BROWN
-            pygame.draw.rect(screen, color, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+board = Board(screen)  # Initialize the Board
+#functions related to drawing the chess board and pieces
 
 def draw_pieces():
     board_fen = chess_board.board_fen().split()[0].replace("/", "")
@@ -151,9 +145,9 @@ def main():
     running = True
     while running:
         screen.fill((0, 0, 0))
-        draw_board()
-        highlight_moves()
+        board.draw_board(screen)
         draw_pieces()
+        highlight_moves()
         highlight_check()
         highlight_checkmate()
         draw_undo_button()
