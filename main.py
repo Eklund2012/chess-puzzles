@@ -6,6 +6,7 @@ from config import *
 from init import Init  
 from board import Board  
 from menu import menu_screen
+from utils import draw_text
 
 # Initialize the game components using Init
 game = Init()
@@ -71,6 +72,28 @@ def handle_player_input():
 
     return True  # Continue game loop
 
+def game_over_screen(screen):
+    """Displays a game over screen with options to replay or return to menu."""
+    screen.fill((30, 30, 30))
+    draw_text(screen, "Game Over", (WIDTH // 2 - 100, HEIGHT // 2 - 50), 48, (255, 0, 0))
+    draw_text(screen, "Press R to Replay", (WIDTH // 2 - 120, HEIGHT // 2), 36, (0, 255, 0))
+    draw_text(screen, "Press M to Return to Menu", (WIDTH // 2 - 160, HEIGHT // 2 + 40), 36, (0, 255, 0))
+    pygame.display.flip()
+
+def handle_game_over_input():
+    """Handles user input on the game over screen."""
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    return 'replay'  # Restart the game
+                elif event.key == pygame.K_m:
+                    return 'menu'  # Return to main menu
+
+
 def game_loop(game_mode, theme):
     """Manages the main game loop."""
     global selected_square
@@ -80,29 +103,40 @@ def game_loop(game_mode, theme):
     while running:
         running = update_display(board, theme)
 
-
         if chess_board.is_game_over():
-            print("Game over!")
-            break  # Stop the loop when the game ends
-        if not chess_board.turn and game_mode == "Human vs AI":  # AI's turn
+            game_over_screen(screen)  # Display game over options
+            game_over_choice = handle_game_over_input()
+
+            if game_over_choice == 'replay':
+                chess_board.reset()  # Reset board for replay
+                return True  # Restart the game
+            elif game_over_choice == 'menu':
+                return False  # Return to menu
+
+        if not chess_board.turn and game_mode == "Human vs AI":
             ai_move()
         elif game_mode == "AI vs AI":
             ai_move()
 
         running = handle_player_input()
 
-    pygame.quit()
+    return False  # Ensure return to menu when exiting
 
 def run_game():
-    """Starts the game after menu selection."""
+    """Starts the game and returns to the menu if the player chooses."""
+    replay_game = True
     difficulty, theme, game_mode = menu_screen()
-    pygame.display.set_caption("Chess - Game: " + game_mode + " - " + theme + " - " + difficulty)
-    ai.set_difficulty(DIFFICULTY[difficulty])  # Set AI difficulty
-
-    try:
-        game_loop(game_mode, theme)
-    finally:
-        ai.close()  # Ensure Stockfish is properly closed
+    while True:
+        if(not replay_game): 
+            difficulty, theme, game_mode = menu_screen()  # Show menu before every game
+        pygame.display.set_caption(f"Chess - Game: {game_mode} - {theme} - {difficulty}")
+        ai.set_difficulty(DIFFICULTY[difficulty])  # Set AI difficulty
+        
+        replay_game = game_loop(game_mode, theme)  # Start the game loop
+        
+        if not replay_game:
+            continue  # Go back to the menu instead of closing the program
 
 if __name__ == "__main__":
     run_game()
+    ai.close()
