@@ -39,7 +39,9 @@ DIFFICULTY = {
 }
 
 THEMES = ['Light', 'Dark', 'Classic Wood', 'Blue Lagoon', 'Green Forest', 'Red Velvet', 'Cyberpunk Neon', 'Marble', 'Ocean Wave']
-GAME_MODES = ['Human vs AI', 'Human vs Human']
+GAME_MODES = ['Human vs AI',
+              'Human vs Human',
+              'AI vs AI']
 
 # Button Rectangles
 BUTTON_RECT = pygame.Rect(300, 700, 150, 50)  # Start Game button

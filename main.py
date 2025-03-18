@@ -18,6 +18,12 @@ selected_square = None
 def ai_move():
     """Handles AI's move if it's the AI's turn."""
     move = ai.get_best_move(chess_board)
+
+    if move is None:  # Ensure AI found a valid move
+        print("Error: AI did not find a valid move.")
+        print("Current board state:\n", chess_board)
+        return  # Prevent pushing None
+
     chess_board.push(move)
 
 def get_square_from_pos(pos):
@@ -32,9 +38,11 @@ def update_display(board, theme):
     board.draw_pieces(screen, chess_board)
     board.highlight_moves(selected_square, chess_board, screen)
     board.highlight_check(chess_board, screen)
-    board.highlight_checkmate(chess_board, screen)
+    if(board.highlight_checkmate(chess_board, screen)):
+        return False
     board.highlight_selected_piece(selected_square, screen)
     pygame.display.flip()
+    return True
 
 def handle_player_input():
     """Handles mouse and keyboard input for player moves."""
@@ -70,9 +78,15 @@ def game_loop(game_mode, theme):
     board = Board(screen)
 
     while running:
-        update_display(board, theme)
+        running = update_display(board, theme)
 
+
+        if chess_board.is_game_over():
+            print("Game over!")
+            break  # Stop the loop when the game ends
         if not chess_board.turn and game_mode == "Human vs AI":  # AI's turn
+            ai_move()
+        elif game_mode == "AI vs AI":
             ai_move()
 
         running = handle_player_input()
@@ -85,7 +99,10 @@ def run_game():
     pygame.display.set_caption("Chess - Game: " + game_mode + " - " + theme + " - " + difficulty)
     ai.set_difficulty(DIFFICULTY[difficulty])  # Set AI difficulty
 
-    game_loop(game_mode, theme)  # Start the game loop
+    try:
+        game_loop(game_mode, theme)
+    finally:
+        ai.close()  # Ensure Stockfish is properly closed
 
 if __name__ == "__main__":
     run_game()

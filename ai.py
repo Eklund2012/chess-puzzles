@@ -15,6 +15,9 @@ class ChessAI:
 
     def get_best_move(self, board):
         """Let Stockfish decide the best move."""
+        legal_moves = list(board.legal_moves)  # Get all legal moves
+        if not legal_moves:
+            return None  # No moves available (checkmate/stalemate)
         result = self.engine.play(board, chess.engine.Limit(time=0.5))
         return result.move
 
