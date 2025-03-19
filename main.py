@@ -7,6 +7,7 @@ from init import Init
 from board import Board  
 from menu import menu_screen
 from utils import draw_text
+from puzzles.puzzle_mode import puzzle_mode  # Import the puzzle mode function
 
 # Initialize the game components using Init
 game = Init()
@@ -51,6 +52,8 @@ def handle_player_input():
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
             return False  # Exit game loop
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -85,6 +88,7 @@ def handle_game_over_input():
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                print("Exiting game.")
                 pygame.quit()
                 exit()
             elif event.type == pygame.KEYDOWN:
@@ -92,7 +96,6 @@ def handle_game_over_input():
                     return 'replay'  # Restart the game
                 elif event.key == pygame.K_m:
                     return 'menu'  # Return to main menu
-
 
 def game_loop(game_mode, theme):
     """Manages the main game loop."""
@@ -117,6 +120,8 @@ def game_loop(game_mode, theme):
             ai_move()
         elif game_mode == "AI vs AI":
             ai_move()
+        elif game_mode == "Puzzle Mode":
+            puzzle_mode(screen, chess_board, theme)
 
         running = handle_player_input()
 
@@ -140,3 +145,5 @@ def run_game():
 if __name__ == "__main__":
     run_game()
     ai.close()
+
+
