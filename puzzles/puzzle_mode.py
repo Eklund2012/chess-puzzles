@@ -3,7 +3,7 @@ import pygame
 import chess
 import json
 from utils import draw_text
-from config import SQUARE_SIZE
+from config import *
 from board import Board  
 
 def get_square_from_pos(pos):
@@ -31,11 +31,32 @@ def update_display_puzzle(screen, board, theme, chess_board, selected_square):
     pygame.display.flip()
     return True
 
+def draw_puzzle_text(screen, puzzle_index, total_puzzles):
+    """Draws puzzle text on the screen."""
+    draw_text(screen, f"Puzzle {puzzle_index + 1}/{total_puzzles}", (50, 50))
+
+def draw_puzzle_options(screen):
+    """Draws the puzzle options on the screen."""
+    draw_text(screen, "Puzzle Mode", (50, 50), 64)
+    draw_text(screen, "Select a puzzle to solve:", (50, 150), 32)
+    draw_text(screen, "Press 'Q' to quit", (50, 200), 32)
+
+def draw_puzzle_menu():
+    """Draws the puzzle menu."""
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Puzzle Mode - Menu")
+    running = True
+    while running:
+        draw_puzzle_options(screen)
+        pygame.display.flip()
+    return
+
 def puzzle_mode(screen, chess_board, theme):
     """Runs the puzzle mode."""
     puzzle_index = 0
     puzzles = load_puzzles()
     board = Board(screen)
+    draw_puzzle_menu()
 
     while puzzle_index < len(puzzles):
         print(f"Puzzle {puzzle_index + 1}/{len(puzzles)}")
@@ -72,3 +93,4 @@ def puzzle_mode(screen, chess_board, theme):
         puzzle_index += 1  
 
     print("You completed all puzzles!")
+    return False

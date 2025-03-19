@@ -121,7 +121,9 @@ def game_loop(game_mode, theme):
         elif game_mode == "AI vs AI":
             ai_move()
         elif game_mode == "Puzzle Mode":
-            puzzle_mode(screen, chess_board, theme)
+            running = puzzle_mode(screen, chess_board, theme)
+            print("Puzzle mode ended.")
+            return False
 
         running = handle_player_input()
 
