@@ -4,7 +4,7 @@ import pygame
 import chess
 
 from config import WIDTH, HEIGHT
-from ai import ChessAI
+from stockfish.ai import ChessAI
 
 
 class Init:
