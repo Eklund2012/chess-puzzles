@@ -76,12 +76,11 @@ def draw_puzzle_hint(screen, hint):
 
 def puzzle_mode(screen, chess_board, theme):
     """Runs the puzzle mode."""
+    if(not draw_puzzle_menu()):
+        return False
     puzzle_index = 0
     puzzles = load_puzzles()
     board = Board(screen)
-
-    if(not draw_puzzle_menu()):
-        return False
 
     while puzzle_index < len(puzzles):
         print(f"Puzzle {puzzle_index + 1}/{len(puzzles)}")
