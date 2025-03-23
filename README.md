@@ -32,8 +32,6 @@ A chess puzzle game where you can solve various chess puzzles, with options for 
 
 ## Usage
 
-## Usage
-
 The game offers the following modes:
 
 - **Human vs Human**: Play against a friend on the same machine.
