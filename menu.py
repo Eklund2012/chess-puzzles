@@ -6,8 +6,8 @@ def draw_menu_options(screen, selected_difficulty, selected_theme, selected_mode
     """Draws menu options for difficulty, theme, and game mode."""
     screen.fill((30, 30, 30))
 
-    draw_text(screen, "Select Difficulty:", (50, 50))
-    draw_text(screen, "Select Theme:", (300, 50))
+    draw_text(screen, "Select AI Difficulty:", (50, 50))
+    draw_text(screen, "Select Board Theme:", (350, 50))
     draw_text(screen, "Select Game Mode:", (50, 300))
 
     # Draw Difficulty Options
@@ -18,7 +18,7 @@ def draw_menu_options(screen, selected_difficulty, selected_theme, selected_mode
     # Draw Theme Options
     for i, theme in enumerate(THEMES):
         color = (0, 255, 0) if theme == selected_theme else (200, 200, 200)
-        draw_text(screen, theme, (320, 100 + i * 40), 32, color)
+        draw_text(screen, theme, (370, 100 + i * 40), 32, color)
 
     # Draw Game Mode Options
     for i, mode in enumerate(GAME_MODES):

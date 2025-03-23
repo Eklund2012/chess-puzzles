@@ -70,8 +70,9 @@ def handle_player_input():
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE:
-                if chess_board.move_stack:
+                if len(chess_board.move_stack) > 1:  
                     chess_board.pop()
+                    chess_board.pop()  # Undo opponent’s move too
 
     return True  # Continue game loop
 
@@ -95,7 +96,7 @@ def handle_game_over_input():
                 if event.key == pygame.K_r:
                     return 'replay'  # Restart the game
                 elif event.key == pygame.K_m:
-                    return 'menu'  # Return to main menu
+                    return 'menu'  # Return to main menu          
 
 def game_loop(game_mode, theme):
     """Manages the main game loop."""
