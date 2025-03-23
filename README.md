@@ -7,7 +7,7 @@ A chess puzzle game where you can solve various chess puzzles, with options for 
 1. Clone the repository:
     ```bash
     git clone https://github.com/Eklund2012/py-chess-puzzles.git
-    cd <project-folder>
+    cd py-chess-puzzles
     ```
 
 2. Create a virtual environment:
@@ -32,8 +32,23 @@ A chess puzzle game where you can solve various chess puzzles, with options for 
 
 ## Usage
 
-Game modes: Human vs Human, Human vs AI, AI vs Ai, Puzzle mode. Option for board themes and AI difficulty
+## Usage
+
+The game offers the following modes:
+
+- **Human vs Human**: Play against a friend on the same machine.
+- **Human vs AI**: Play against the AI with selectable difficulty levels.
+- **AI vs AI**: Watch two AIs play against each other.
+- **Puzzle Mode**: Solve chess puzzles to improve your skills.
+
+You can also customize the appearance of the board by selecting different themes, and adjust the difficulty of the AI.
+
+Controls:
+- Click on pieces to select them and move them to the desired square.
+- Press 'H' to get a hint for the puzzle.
+- Press 'Q' to quit the game.
 
 ## Contact
 
-david.eklund9@gmail.com, www.linkedin.com/in/david-eklund02
+- Email: [david.eklund9@gmail.com](mailto:david.eklund9@gmail.com)
+- LinkedIn: [www.linkedin.com/in/david-eklund02](https://www.linkedin.com/in/david-eklund02)
