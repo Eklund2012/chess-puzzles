@@ -18,6 +18,7 @@ class Init:
         """
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.clock = pygame.time.Clock()
         pygame.display.set_caption("Chess Game")
         self.chess_board = chess.Board()
         self.selected_square = None

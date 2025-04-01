@@ -1,6 +1,7 @@
 import pygame
 import chess
 import chess.engine
+import asyncio
 
 from config import *
 from init import Init  
@@ -98,8 +99,11 @@ def handle_game_over_input():
                 elif event.key == pygame.K_m:
                     return 'menu'  # Return to main menu          
 
-def game_loop(game_mode, theme):
-    """Manages the main game loop."""
+import pygame
+import asyncio
+
+async def game_loop(game_mode, theme):
+    """Manages the main game loop asynchronously for Pygbag compatibility."""
     global selected_square
     running = True
     board = Board(screen)
@@ -128,26 +132,31 @@ def game_loop(game_mode, theme):
             return False
 
         running = handle_player_input()
+        
+        await asyncio.sleep(0)  # Allow async execution
 
     return False  # Ensure return to menu when exiting
 
-def run_game():
-    """Starts the game and returns to the menu if the player chooses."""
+
+async def run_game():
+    """Starts the game asynchronously for Pygbag."""
     replay_game = True
     difficulty, theme, game_mode = menu_screen()
     while True:
-        if(not replay_game): 
+        if not replay_game:
             difficulty, theme, game_mode = menu_screen()  # Show menu before every game
+
         pygame.display.set_caption(f"Chess - Game: {game_mode} - {theme} - {difficulty}")
         ai.set_difficulty(DIFFICULTY[difficulty])  # Set AI difficulty
         
-        replay_game = game_loop(game_mode, theme)  # Start the game loop
+        replay_game = await game_loop(game_mode, theme)  # Await async function
         
         if not replay_game:
             continue  # Go back to the menu instead of closing the program
 
 if __name__ == "__main__":
-    run_game()
+    asyncio.run(run_game())  # Use asyncio.run for async compatibility
     ai.close()
+
 
 
