@@ -1,3 +1,5 @@
+#config.py
+
 import pygame
 
 # Screen Dimensions

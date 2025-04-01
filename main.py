@@ -124,6 +124,7 @@ def game_loop(game_mode, theme):
         elif game_mode == "Puzzle Mode":
             running = puzzle_mode(screen, chess_board, theme)
             print("Puzzle mode ended.")
+            chess_board.reset()  # Reset board after puzzle mode
             return False
 
         running = handle_player_input()
