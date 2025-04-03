@@ -2,6 +2,9 @@ import pygame
 from config import *
 from utils import *
 
+piece_image = None
+piece_x, piece_y = 0, 0
+
 def draw_menu_options(screen, selected_difficulty, selected_theme, selected_mode):
     """Draws menu options for difficulty, theme, and game mode."""
     screen.fill((30, 30, 30))
@@ -25,14 +28,14 @@ def draw_menu_options(screen, selected_difficulty, selected_theme, selected_mode
         color = (0, 255, 0) if mode == selected_mode else (200, 200, 200)
         draw_text(screen, mode, (70, 350 + i * 40), 32, color)
 
-    screen.blit(pygame.image.load(f"images/wk.png"), (WIDTH - 200, HEIGHT - 200))  # Add logo
-
     # Draw Start Button
     pygame.draw.rect(screen, (100, 200, 100), START_BUTTON_RECT, border_radius=10)  # Rounded button
     draw_text(screen, "Start Game", (START_BUTTON_RECT.x + 15, START_BUTTON_RECT.y + 12), 32, (0, 0, 0))  # Center text
     # Draw Quit Button
     pygame.draw.rect(screen, (255, 0, 0), QUIT_BUTTON_RECT, border_radius=10)  # Rounded button
     draw_text(screen, "Quit", (QUIT_BUTTON_RECT.x + 40, QUIT_BUTTON_RECT.y + 12), 32, (0, 0, 0))  # Center text
+ 
+    screen.blit(pygame.image.load(f"images/wk.png"), (WIDTH - 200, HEIGHT - 200))  # Add logo
 
 def handle_menu_events(screen, selected_difficulty, selected_theme, selected_mode):
     """Handles user interactions in the menu screen."""
