@@ -27,7 +27,7 @@ A chess puzzle game where you can solve various chess puzzles, with options for 
 
 5. Run the game:
     ```bash
-    python main.py
+    python3 main.py
     ```
 
 ## Usage
