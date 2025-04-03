@@ -9,6 +9,7 @@ from board import Board
 from menu import menu_screen
 from utils import draw_text
 from puzzles.puzzle_mode import puzzle_mode  # Import the puzzle mode function
+from utils import *
 
 # Initialize the game components using Init
 game = Init()
@@ -28,6 +29,7 @@ def ai_move():
         return  # Prevent pushing None
 
     chess_board.push(move)
+
 
 def get_square_from_pos(pos):
     """Converts mouse position to a chess square."""
@@ -74,6 +76,10 @@ def handle_player_input():
                 if len(chess_board.move_stack) > 1:  
                     chess_board.pop()
                     chess_board.pop()  # Undo opponent’s move too
+            elif event.key == pygame.K_q:
+                print("test")
+                return False
+        
 
     return True  # Continue game loop
 
@@ -102,7 +108,7 @@ def handle_game_over_input():
 import pygame
 import asyncio
 
-async def game_loop(game_mode, theme):
+def game_loop(game_mode, theme):
     """Manages the main game loop asynchronously for Pygbag compatibility."""
     global selected_square
     running = True
@@ -133,12 +139,10 @@ async def game_loop(game_mode, theme):
 
         running = handle_player_input()
         
-        await asyncio.sleep(0)  # Allow async execution
-
     return False  # Ensure return to menu when exiting
 
 
-async def run_game():
+def run_game():
     """Starts the game asynchronously for Pygbag."""
     replay_game = True
     difficulty, theme, game_mode = menu_screen()
@@ -149,7 +153,8 @@ async def run_game():
         pygame.display.set_caption(f"Chess - Game: {game_mode} - {theme} - {difficulty}")
         ai.set_difficulty(DIFFICULTY[difficulty])  # Set AI difficulty
         
-        replay_game = await game_loop(game_mode, theme)  # Await async function
+        play_sound("sounds/board_start.mp3")  # Play sound when the board is drawn
+        replay_game = game_loop(game_mode, theme)  # Await async function
         
         if not replay_game:
             continue  # Go back to the menu instead of closing the program

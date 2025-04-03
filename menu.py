@@ -1,6 +1,6 @@
 import pygame
 from config import *
-from utils import draw_text
+from utils import *
 
 def draw_menu_options(screen, selected_difficulty, selected_theme, selected_mode):
     """Draws menu options for difficulty, theme, and game mode."""
@@ -25,6 +25,8 @@ def draw_menu_options(screen, selected_difficulty, selected_theme, selected_mode
         color = (0, 255, 0) if mode == selected_mode else (200, 200, 200)
         draw_text(screen, mode, (70, 350 + i * 40), 32, color)
 
+    screen.blit(pygame.image.load(f"images/wk.png"), (WIDTH - 200, HEIGHT - 200))  # Add logo
+
     # Draw Start Button
     pygame.draw.rect(screen, (100, 200, 100), START_BUTTON_RECT, border_radius=10)  # Rounded button
     draw_text(screen, "Start Game", (START_BUTTON_RECT.x + 15, START_BUTTON_RECT.y + 12), 32, (0, 0, 0))  # Center text
@@ -32,14 +34,16 @@ def draw_menu_options(screen, selected_difficulty, selected_theme, selected_mode
     pygame.draw.rect(screen, (255, 0, 0), QUIT_BUTTON_RECT, border_radius=10)  # Rounded button
     draw_text(screen, "Quit", (QUIT_BUTTON_RECT.x + 40, QUIT_BUTTON_RECT.y + 12), 32, (0, 0, 0))  # Center text
 
-def handle_menu_events(selected_difficulty, selected_theme, selected_mode):
+def handle_menu_events(screen, selected_difficulty, selected_theme, selected_mode):
     """Handles user interactions in the menu screen."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            play_sound("sounds/select-menu.mp3")  # Play sound on click
             x, y = event.pos
+
             if START_BUTTON_RECT.collidepoint(x, y):  # Check if click is inside the button
                 return False, selected_difficulty, selected_theme, selected_mode  
             elif QUIT_BUTTON_RECT.collidepoint(x, y):  # Check if click is inside the button
@@ -75,8 +79,9 @@ def menu_screen():
     while running:
         draw_menu_options(screen, selected_difficulty, selected_theme, selected_mode)
         pygame.display.flip()
-        running, selected_difficulty, selected_theme, selected_mode = handle_menu_events(
+        running, selected_difficulty, selected_theme, selected_mode = handle_menu_events(screen,
             selected_difficulty, selected_theme, selected_mode
         )
+
 
     return selected_difficulty, selected_theme, selected_mode

@@ -2,11 +2,11 @@
     {
         "fen": "r2qkb1r/pp2np1p/3p1p2/2p1N1B1/2BnP3/3P4/PPP2PPP/R2bK2R w KQkq - 0 1",
         "solution": ["c4f7"],
-        "hint": "Use the bishop for a mate in 1."
+        "hint": "Use the white bishop for a mate in 1."
     },
     {
         "fen": "1n2kb1r/p4ppp/4q3/4p1B1/4P3/8/PPP2PPP/2KR4 w k - 0 1",
         "solution": ["d1d8"],
-        "hint": "Use the rook for a mate in 1."
+        "hint": "Use the white rook for a mate in 1."
     }
 ]

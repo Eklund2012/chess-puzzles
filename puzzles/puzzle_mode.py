@@ -2,7 +2,7 @@
 import pygame
 import chess
 import json
-from utils import draw_text
+from utils import *
 from config import *
 from board import Board  
 
@@ -38,6 +38,7 @@ def draw_puzzle_options(screen):
     draw_text(screen, "Press 'Q' to quit", (50, 200), 32)
     draw_text(screen, "Press 'S' to start", (50, 250), 32)
     draw_text(screen, "Press 'H' during game for hints", (50, 300), 32)
+    draw_text(screen, "Available puzzles: " + str(len(load_puzzles())), (50, 350), 32)
 
 def draw_puzzle_menu():
     """Draws the puzzle menu and waits for user interaction."""
@@ -62,7 +63,9 @@ def draw_puzzle_menu():
 
     return True# When the loop finishes, we exit and start the puzzle mode
 
-def draw_feedback(screen, message, color=(255, 255, 255)):
+def draw_feedback(screen, message, color=(255, 255, 255), fill_screen=True):
+    if fill_screen:
+        screen.fill((30, 30, 30))
     draw_text(screen, message, (WIDTH / 2 - 100, HEIGHT / 2), 72, color)
     pygame.display.flip()
     pygame.time.delay(1000)  # Pause for 1 second
@@ -70,9 +73,9 @@ def draw_feedback(screen, message, color=(255, 255, 255)):
 def draw_puzzle_hint(screen, hint):
     """Displays the puzzle hint on the screen."""
     screen.fill((30, 30, 30))
-    draw_text(screen, f"Hint: {hint}", (50, HEIGHT - 100), 28, (200, 200, 0))
+    draw_text(screen, f"Hint: {hint}", (WIDTH / 2 - 100, HEIGHT / 2), 28, (200, 200, 0))
     pygame.display.flip()
-    pygame.time.delay(1000) 
+    pygame.time.delay(1000)     
 
 def puzzle_mode(screen, chess_board, theme):
     """Runs the puzzle mode."""
@@ -115,10 +118,11 @@ def puzzle_mode(screen, chess_board, theme):
                     else:
                         move = chess.Move(selected_square, square)
                         if move in solution_moves:
-                            draw_feedback(screen, "Correct!", (0, 255, 0))
+                            play_sound("sounds/successed.mp3")
+                            draw_feedback(screen, "Correct!", (0, 255, 0), True)
                             puzzle_solved = True  # Puzzle solved, exit loop
                         else:
-                            draw_feedback(screen, "Try again!", (255, 0, 0))
+                            draw_feedback(screen, "Try again!", (255, 0, 0), False)
                         selected_square = None  # Reset selection after move attempt
 
 
