@@ -39,14 +39,10 @@ The game offers the following modes:
 - **AI vs AI**: Watch two AIs play against each other.
 - **Puzzle Mode**: Solve chess puzzles to improve your skills.
 
-You can also customize the appearance of the board by selecting different themes, and adjust the difficulty of the AI.
-
-Controls:
-- Click on pieces to select them and move them to the desired square.
-- Press 'H' to get a hint for the puzzle.
-- Press 'Q' to quit the game.
+Customize and add your own chess puzzles by editing the /puzzles/puzzles.json file using FEN (Forsyth-Edwards Notation).
 
 ## Contact
 
 - Email: [david.eklund9@gmail.com](mailto:david.eklund9@gmail.com)
 - LinkedIn: [www.linkedin.com/in/david-eklund02](https://www.linkedin.com/in/david-eklund02)
+- Website: https://davideklund.com
