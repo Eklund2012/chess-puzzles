@@ -1,6 +1,10 @@
-# Chess Puzzle Game
+# ♟️ Chess Puzzle Game
 
-A chess puzzle game where you can solve various chess puzzles, with options for themes and AI difficulty levels.
+A fun and educational chess puzzle game where you can challenge yourself or others with various puzzles. Includes customizable themes, adjustable AI difficulty levels, and multiple gameplay modes.
+
+# Why I created this
+
+Most popular chess apps lock their puzzle features behind paywalls, making it harder for people to access quality chess training tools. I built this game to offer free and open access to engaging chess puzzles for anyone who wants to improve their skills—no subscriptions, no ads.
 
 ## Installation
 
@@ -39,7 +43,7 @@ The game offers the following modes:
 - **AI vs AI**: Watch two AIs play against each other.
 - **Puzzle Mode**: Solve chess puzzles to improve your skills.
 
-Customize and add your own chess puzzles by editing the /puzzles/puzzles.json file using FEN (Forsyth-Edwards Notation).
+🧩 You can add or customize puzzles by editing the puzzles/puzzles.json file using FEN (Forsyth–Edwards Notation).
 
 ## Contact
 

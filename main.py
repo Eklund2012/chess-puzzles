@@ -142,7 +142,7 @@ def game_loop(game_mode, theme):
     return False  # Ensure return to menu when exiting
 
 
-def run_game():
+async def main():
     """Starts the game asynchronously for Pygbag."""
     replay_game = True
     difficulty, theme, game_mode = menu_screen()
@@ -159,9 +159,14 @@ def run_game():
         if not replay_game:
             continue  # Go back to the menu instead of closing the program
 
-if __name__ == "__main__":
+        await asyncio.sleep(0)  # Small delay to prevent high CPU usage
+
+'''if __name__ == "__main__":
     asyncio.run(run_game())  # Use asyncio.run for async compatibility
     ai.close()
+    pygame.quit()'''
+
+asyncio.run(main())  # Use asyncio.run for async compatibility
 
 
 
