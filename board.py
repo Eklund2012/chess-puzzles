@@ -10,7 +10,7 @@ class Board:
     def __init__(self, screen):
         self.screen = screen
         self.PIECES = {
-            piece: pygame.transform.scale(pygame.image.load(f"images/{piece}.png"), (SQUARE_SIZE, SQUARE_SIZE))
+            piece: pygame.transform.scale(pygame.image.load(f"assets/images/{piece}.png"), (SQUARE_SIZE, SQUARE_SIZE))
             for piece in PIECE_NAMES
         }
         

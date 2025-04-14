@@ -35,7 +35,7 @@ def draw_menu_options(screen, selected_difficulty, selected_theme, selected_mode
     pygame.draw.rect(screen, (255, 0, 0), QUIT_BUTTON_RECT, border_radius=10)  # Rounded button
     draw_text(screen, "Quit", (QUIT_BUTTON_RECT.x + 40, QUIT_BUTTON_RECT.y + 12), 32, (0, 0, 0))  # Center text
  
-    screen.blit(pygame.image.load(f"images/wk.png"), (WIDTH - 200, HEIGHT - 200))  # Add logo
+    screen.blit(pygame.image.load(f"assets/images/wk.png"), (WIDTH - 200, HEIGHT - 200))  # Add logo
 
 def handle_menu_events(screen, selected_difficulty, selected_theme, selected_mode):
     """Handles user interactions in the menu screen."""
@@ -44,7 +44,7 @@ def handle_menu_events(screen, selected_difficulty, selected_theme, selected_mod
             pygame.quit()
             exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            play_sound("sounds/select-menu.mp3")  # Play sound on click
+            play_sound("assets/sounds/select-menu.mp3")  # Play sound on click
             x, y = event.pos
 
             if START_BUTTON_RECT.collidepoint(x, y):  # Check if click is inside the button
@@ -70,6 +70,7 @@ def handle_menu_events(screen, selected_difficulty, selected_theme, selected_mod
     return True, selected_difficulty, selected_theme, selected_mode  
 
 def menu_screen():
+    print("Starting menu screen...")
     """Displays the menu and returns selected options."""
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Chess - Main Menu")

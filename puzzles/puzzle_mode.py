@@ -118,7 +118,7 @@ def puzzle_mode(screen, chess_board, theme):
                     else:
                         move = chess.Move(selected_square, square)
                         if move in solution_moves:
-                            play_sound("sounds/successed.mp3")
+                            play_sound("assets/sounds/successed.mp3")
                             draw_feedback(screen, "Correct!", (0, 255, 0), True)
                             puzzle_solved = True  # Puzzle solved, exit loop
                         else:
