@@ -1,10 +1,10 @@
 # ♟️ Chess Puzzle Game
 
-A fun and educational chess puzzle game where you can challenge yourself or others with various puzzles. Includes customizable themes, adjustable AI difficulty levels, and multiple gameplay modes.
+Fun and educational chess puzzle game. Includes customizable themes, adjustable AI difficulty levels, and multiple gameplay modes.
 
 # Why I created this
 
-Most popular chess apps lock their puzzle features behind paywalls, making it harder for people to access quality chess training tools. I built this game to offer free and open access to engaging chess puzzles for anyone who wants to improve their skills—no subscriptions, no ads.
+Most popular chess apps lock their puzzle features behind paywalls. I built this game to offer free and open access to chess puzzles for anyone who wants to improve their skills—no subscriptions, no ads.
 
 ## Installation
 
