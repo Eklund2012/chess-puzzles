@@ -45,6 +45,8 @@ The game offers the following modes:
 
 🧩 You can add or customize puzzles by editing the puzzles/puzzles.json file using FEN (Forsyth–Edwards Notation).
 
+![Game Screenshot](assets/screenshot.png)
+
 ## Contact
 
 - Email: [david.eklund9@gmail.com](mailto:david.eklund9@gmail.com)
