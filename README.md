@@ -1,6 +1,6 @@
 # ♟️ Chess Puzzle Game
 
-Fun and educational chess puzzle game. Includes customizable themes, adjustable AI difficulty levels, and multiple gameplay modes.
+Chess puzzle game. Includes customizable themes, adjustable AI difficulty, and multiple gameplay modes.
 
 # Why I created this
 
@@ -43,8 +43,10 @@ The game offers the following modes:
 - **AI vs AI**: Watch two AIs play against each other.
 - **Puzzle Mode**: Solve chess puzzles to improve your skills.
 
-🧩 You can add or customize puzzles by editing the puzzles/puzzles.json file using FEN (Forsyth–Edwards Notation).
+You can add or customize puzzles by editing the puzzles/puzzles.json file using FEN (Forsyth–Edwards Notation).
+More about FEN [here](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation)
 
+## Preview
 ![Game Screenshot](assets/screenshot.png)
 
 ## Contact
