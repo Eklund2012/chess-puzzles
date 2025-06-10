@@ -47,7 +47,7 @@ You can add or customize puzzles by editing the puzzles/puzzles.json file using 
 More about FEN [here](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation)
 
 ## Preview
-![Game Screenshot](assets/screenshot.png)
+![Game Screenshot](assets/game_preview.png)
 
 ## Contact
 
